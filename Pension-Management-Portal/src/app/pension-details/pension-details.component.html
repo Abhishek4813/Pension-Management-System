@@ -1,0 +1,39 @@
+<div class="container-fluid header">
+<p class="heading-text">Enter Your Pension Detail here</p>
+</div>
+<div class="container-fluid content">
+<form [formGroup]="pensionDetails">
+    <div class="row" >
+        <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="col-sm-4">
+            <input type="date" class="form-control" formControlName="dob">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+        <input type="text" class="form-control" formControlName="pan">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 offset-1">
+            <input class="form-check-input" type="radio" formControlName="pensionType" value="self">
+            <label class="form-check-label" for="gridRadios2">
+              Self
+            </label>
+          </div>
+          <div class="form-check col-sm-5">
+            <input class="form-check-input" type="radio" formControlName="pensionType" value="family">
+            <label class="form-check-label" for="gridRadios2">
+              Family
+            </label>
+          </div>
+    </div>
+    <div class="container-fluid footer">
+        <input type="submit" class="button-submit" value="Submit">
+    </div>
+</form>
+</div>
+
+

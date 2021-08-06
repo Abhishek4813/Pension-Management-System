@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+.enter{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    background-color: #2A2A2B;
+    background-color: rgba(17, 17, 17, 0.67);
+    z-index: 999999999;
+    text-align: center;
+    line-height: 100px;
+    text-decoration: none;
+    color: #FFF;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-box-shadow: 0 0 15px 2px #000;
+    -moz-box-shadow: 0 0 15px 2px #000;
+    box-shadow: 0 0 15px 2px #000;
+  }
+  .enter:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 80px;
+    height: 80px;
+    background-color: #3FB4BE;
+    background-color: rgba(0, 235, 255, 0.44);
+    z-index: 999999999;
+    text-align: center;
+    line-height: 80px;
+    text-decoration: none;
+    color: #FFF;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-box-shadow: 0 0 15px 2px #000;
+    -moz-box-shadow: 0 0 15px 2px #000;
+    box-shadow: 0 0 15px 2px #000;
+  }
+  .enter:hover{
+    -webkit-box-shadow:0 0 4px 4px #3FB4BE;
+    -moz-box-shadow:0 0 4px 4px #3FB4BE;
+    box-shadow:0 0 4px 4px #3FB4BE;
+  }
+  .enter:hover:after{
+    background-color: #2A2A2B;
+    background-color: rgba(17, 17, 17, 0.67);
+  }
+  .hideThis{
+    -webkit-box-shadow:0 0 0 0 #3FB4BE;
+    -moz-box-shadow:0 0 0 0 #3FB4BE;
+    box-shadow:0 0 0 0 #3FB4BE;
+    opacity:0;
+    z-index:-5;
+  }
+  .enter:after,
+  .enter:hover:after,
+  .enter,.enter:hover{
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition:all 1s ease;
+  }
+  
+.index-styling{
+    background:url("src/assets/welcome.jpg") no-repeat center center fixed #ecf0f1;
+    text-align:center;
+    background-size: cover;
+    background-position:top;
+    height:92vh;
+  }
+.heading{
+    padding-top:350px;
+    color: white;
+    font-family: 'Archivo Black', sans-serif;
+    text-shadow: 2px 2px 8px black;
+}
+  

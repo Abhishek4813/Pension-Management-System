@@ -1,0 +1,41 @@
+
+.header{
+    height:15vh;
+    width:100%;
+    background-color: rgba(225,234,240,255);
+    color: rgba(6,41,60,255);
+    text-align: center;
+}
+.heading-text{
+    font-weight:bold;
+    line-height:16vh;
+    font-size:32px;
+}
+.content{
+    background-image:linear-gradient(to right,rgba(40,78,93,255),rgba(70,103,119,255),rgba(70,104,119,255)
+    ,rgba(38,78,92,255),rgba(40,78,93,255)) ;
+    height:70vh;
+    padding:30px;
+}
+.footer{
+    position:fixed;
+    bottom:0px;
+    right:0px;
+    background-color: rgba(246,12,78,255);
+    height:7vh;
+    text-align: center;
+}
+.row{
+    margin:20px 0px;
+}
+.button-submit{
+    border:0px;
+    outline:0px;
+    padding:5px 10px;
+    background-color:white;
+    color:rgba(246,12,78,255);
+    margin-top:8px;
+    width:120px;
+    font-size:14px;
+    font-weight:bold;
+}

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+.navbar{
+    justify-content: space-between !important;
+    background-color: rgba(35,46,54,255);
+    height:8vh;
+}
+a{
+color: white !important;
+}
+.btn-property{
+    background-color: rgba(246,13,79,255);
+    width:80px;
+}
+.navbar-brand{
+    font-family: 'Staatliches', cursive;
+    font-size: 1.5em;
+}
+@Media only screen and (max-width:380px){
+    .btn-property{
+        width:60px !important;
+    }
+    .navbar-brand{
+        font-size:0.75em !important;
+    }
+}
