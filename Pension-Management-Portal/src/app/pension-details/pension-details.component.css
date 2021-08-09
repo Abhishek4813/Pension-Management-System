@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap');
 .header{
     height:15vh;
     width:100%;
@@ -9,13 +9,16 @@
 .heading-text{
     font-weight:bold;
     line-height:16vh;
-    font-size:32px;
+    font-size:42px;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-family: 'Hind Siliguri', sans-serif;
 }
 .content{
     background-image:linear-gradient(to right,rgba(40,78,93,255),rgba(70,103,119,255),rgba(70,104,119,255)
     ,rgba(38,78,92,255),rgba(40,78,93,255)) ;
     height:70vh;
-    padding:30px;
+    padding:20px;
 }
 .footer{
     position:fixed;
@@ -28,14 +31,60 @@
 .row{
     margin:20px 0px;
 }
+
+.form-label{
+    color:rgba(225,234,240,255);
+    margin:8px;
+}
+.check-box{
+    width:20px;
+    height:20px;
+}
+
 .button-submit{
     border:0px;
-    outline:0px;
-    padding:5px 10px;
-    background-color:white;
+    outline: 0px;
+    margin-top:10px;
     color:rgba(246,12,78,255);
-    margin-top:8px;
     width:120px;
-    font-size:14px;
-    font-weight:bold;
+    padding:5px 30px;
+    font-family: 'Hind Siliguri', sans-serif;
+    background-color: white;
+}
+
+.form-label-position{
+    position: relative;
+    bottom:5px;
+}
+.form-errors{
+    color:red;
+}
+.loader{
+    position:absolute;
+    top:30%;
+    left:25%;
+    background-color:white;
+    height:300px;
+    width:50%;
+    border-radius:10px;
+    box-shadow: 5px 3px 24px 7px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loader img{
+    height:150px;
+    width:150px;
+}
+@media only screen and (max-width:580px){
+    .heading-text{
+        font-size: 28px;
+    }
+    .content{
+        padding: 5px;
+    }
+    .form-label{
+        margin:2px;
+    }
 }

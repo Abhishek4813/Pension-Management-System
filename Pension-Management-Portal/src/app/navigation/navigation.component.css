@@ -4,7 +4,7 @@
     background-color: rgba(35,46,54,255);
     height:8vh;
 }
-a{
+a,button{
 color: white !important;
 }
 .btn-property{

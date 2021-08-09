@@ -1,3 +1,4 @@
+/* Page Background*/
 .login-styling{
   background:url("src/assets/welcome.jpg") no-repeat center center fixed #ecf0f1;
   text-align:center;
@@ -6,6 +7,7 @@
   height:92vh;
 }
 
+/*Login Form Css*/
 .login-box {
   margin-top: 75px;
   height: auto;
@@ -111,6 +113,9 @@ label {
 .form-errors{
   color:red;
 }
+/* login Form Css End*/
+
+/*Login Error alert css*/
 .alert-styling{
   position:relative;
   top:10px;

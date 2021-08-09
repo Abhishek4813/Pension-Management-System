@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {HttpClientModule} from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -8,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PensionDetailsComponent } from './pension-details/pension-details.component';
+import { PensionDisbursementComponent } from './pension-disbursement/pension-disbursement.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { PensionDetailsComponent } from './pension-details/pension-details.compo
     NavigationComponent,
     LoginComponent,
     HomeComponent,
-    PensionDetailsComponent
+    PensionDetailsComponent,
+    PensionDisbursementComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

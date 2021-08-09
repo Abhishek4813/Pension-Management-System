@@ -1,0 +1,64 @@
+<div class="container-fluid p-0">
+    <div class="container-fluid header">
+    <img src="assets/pensionImg.png" height="80px">
+    <p class="heading-text">{{data.pensionAmount | currency:'INR':'symbol'}}</p>
+    </div>
+    <div class="container-fluid content">
+    <div class="row">
+    <div class="pension-details-right">
+    <div class="row left-container">
+        <div class="col-sm-12">
+            <p style="font-size:14px; margin:0px">MY PENSION</p>
+            <p class="pension-detail-heading">{{data.name}}</p>
+        </div>
+        <div class="col-sm-12 plan-type">
+            <div class="field-label">Plan Type</div>
+            <div class="field-value">{{data.pensionType}}</div>
+        </div>
+        <div class="col-sm-12 plan-type">
+            <div class="field-label"> Date of birth</div>
+            <div class="field-value">{{data.dateOfBirth}}
+            <img src="assets/calendar.png" class="calendar-logo">
+            </div>
+        </div>
+        <div class="col-sm-12 plan-type">
+            <div class="field-label"> Aadhar</div>
+            <div class="field-value">{{aadhar}}</div>
+        </div>
+        <div class="col-sm-12 plan-type">
+            <div class="field-label"> Pan Number</div>
+            <div class="field-value">{{data.pan}}</div>
+        </div>
+    </div>
+    </div>
+    <div class="right-container pension-details-left">
+        <p class="m-0">Total Pension Amount</p>
+        <p class="m-0 h1">{{data.pensionAmount}} &#x20B9;</p>
+        <p  class="mt-5">You can disburse in one click.</p>
+    </div>
+    </div>
+    </div>
+    <div class="container-fluid footer">
+        <button class="button-submit" (click)="doDisburse()">Disburse</button>
+    </div>
+    </div>
+<div class="disburse-status" *ngIf=toggler>
+    <div class="disburse-container" *ngIf=loader>
+        <img src="assets/loader.gif">
+        <p class="text-info h4" style="text-align: center;">Processing..</p>
+    </div>
+    <div class="disburse-container" *ngIf="!loader && disburse" >
+        <p class="text-success h1">Congratulation</p>
+        <p class="text-info" style="text-align: center;">Amount will be Reflected to your back account soon..</p>
+        <div>
+        <button class="btn btn-danger" (click)="toggler=false">Back</button>
+        </div>
+    </div>
+    <div class="disburse-container" *ngIf="!loader && !disburse">
+        <p class="text-danger h1">Error Occured</p>
+        <p class="text-info" style="text-align: center;">Please Try After Sometime.</p>
+        <div>
+        <button class="btn btn-danger" (click)="toggler=false">Back</button>
+        </div>
+    </div>
+</div>

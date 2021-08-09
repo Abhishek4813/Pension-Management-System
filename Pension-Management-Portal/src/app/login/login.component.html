@@ -1,8 +1,12 @@
+<!--Login Failed Message-->
 <div class="container-fluid login-styling">
     <div class="alert alert-danger alert-dismissible fade show alert-styling" *ngIf=alert>
         <button type="button" class="close" (click)="alert=false">&times;</button>
         <strong>Invalid credentials !</strong> Try again with correct username and password.
-      </div>
+    </div>
+<!--Login Failed Message End-->
+
+<!--Login FORM-->
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-2"></div>
@@ -38,3 +42,4 @@
             </div>
         </div>
 </div>
+<!--login Form End-->

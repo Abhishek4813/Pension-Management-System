@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+.header{
+    height:22vh;
+    width:100%;
+    background-color: rgba(225,234,240,255);
+    color: rgba(6,41,60,255);
+    text-align: center;
+}
+.heading-text{
+    font-weight:bold;
+    font-size:42px;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 10px;
+    padding-left:10px;
+}
+.content{
+    background-image:linear-gradient(to right,rgba(40,78,93,255),rgba(70,103,119,255),rgba(70,104,119,255)
+    ,rgba(38,78,92,255),rgba(40,78,93,255)) ;
+    height:63vh;
+    padding:20px;
+}
+.footer{
+    position:fixed;
+    bottom:0px;
+    right:0px;
+    background-color: rgba(246,12,78,255);
+    height:7vh;
+    text-align: center;
+}
+.pension-details-right, .pension-details-left{
+    color:rgba(231,235,237,255);
+    margin:auto;
+    margin-top:50px;
+    font-family: 'Josefin Sans', sans-serif;
+    padding:0 10%;
+    width:50%;
+}
+.pension-detail-heading{
+    font-size:28px;
+}
+.plan-type{
+    display:flex;
+    justify-content: space-between;
+}
+.field-label{
+    width:50%;
+    padding:2px 30px;
+    border-bottom:2px solid rgba(186,198,203,255);
+}
+.field-value{
+    width:50%;
+    padding:2px 30px;
+    border-bottom:2px solid rgba(85,119,133,255);
+    text-transform: capitalize;
+}
+.calendar-logo{
+    position:absolute;
+    right:10px;
+}
+.left-container div{
+
+    margin:8px 0px;
+}
+.right-container{
+    height:60vh;
+    padding-left:15%;
+    padding-top:8% !important;
+}
+.button-submit{
+    border:0px;
+    outline: 0px;
+    margin-top:10px;
+    color:rgba(246,12,78,255);
+    width:120px;
+    padding:5px 30px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.disburse-status{
+    display:flex;
+    height:100vh;
+    width:100vw;
+    position:absolute;
+    top:0px;
+    align-items: center;
+    justify-content: center;
+}
+.disburse-container{
+    width:50%;
+    height:300px;
+    background-color: white;
+    border-radius:10px;
+    box-shadow: 2px 2px 16px black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 1260px){
+
+    .pension-details-right{
+        width:55%;
+        padding:0 5%;
+    }
+    .pension-details-left{
+        width:45%;
+        padding:0 5%;
+    }
+}
+@media only screen and (max-width: 780px){
+
+    .pension-details-right{
+        width:100%;
+        
+    }
+    .pension-details-left{
+        display:none;
+    }
+    .heading-text{
+        font-size:24px;
+    }
+    .disburse-container{
+        width:90%;
+    }
+}

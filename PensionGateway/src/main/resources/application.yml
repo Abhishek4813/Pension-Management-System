@@ -1,23 +1,30 @@
 server:
   port: 8090
 spring:
+  application:
+    name: gateway-service
   cloud:
     gateway:
       routes:
-      - id: process-pension-service
-        uri: http://localhost:8084
-        predicates:
-        - Path=/process/**
       - id: auth-service
         uri: http://localhost:8081
         predicates:
-        - Path=/auth/**
+          - Path=/auth/**
+      - id: process-pension-service
+        uri: http://localhost:8084
+        predicates:
+          - Path=/process/**
       - id: pensioner-details-service
         uri: http://localhost:8082
         predicates:
-        - Path=/**
+          - Path=/details/**
       - id: pensioner-disbursement-service
         uri: http://localhost:8083
         predicates:
-        - Path=/**
-      
+          - Path=/disburse/**
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

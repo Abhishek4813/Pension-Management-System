@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.processPensionMicroservice.client.AuthorizationClient;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
+@RequestMapping("/process")
 public class processPensionController {
 
 	@Autowired
@@ -54,7 +56,7 @@ public class processPensionController {
 
 		if (authorizationClient.authorizeRequest(header)) {
 			PensionerDetail pensionerDetail = pensionerDetailClient
-					.getPensionerDetailByAadhaar(pensionerInput.getAadharNumber());
+					.getPensionerDetailByAadhaar(header,pensionerInput.getAadharNumber());
 
 			PensionDetail pensionDetail = null;
 
@@ -72,7 +74,7 @@ public class processPensionController {
 						pensionDetail.getPensionAmount(), 500);
 
 				try {
-					processPensionResponse = this.getcode(processPensionInput);
+					processPensionResponse = this.getcode(header,processPensionInput);
 					if (processPensionResponse.getPensionStatusCode() == 21) {
 						pensionDetail.setPensionAmount(pensionDetail.getPensionAmount() - 550);
 					} else if (processPensionResponse.getPensionStatusCode() == 10) {
@@ -101,11 +103,11 @@ public class processPensionController {
 	 * 500 }
 	 */
 	@PostMapping("/ProcessPension")
-	public ProcessPensionResponse getcode(@RequestBody ProcessPensionInput processPensionInput)
+	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,@RequestBody ProcessPensionInput processPensionInput)
 			throws IOException, PensionerNotFoundException {
 		log.info("start processPension");
 		log.info("end processPension");
-		return pensionDisbursementClient.getcode(processPensionInput);
+		return pensionDisbursementClient.getcode(header,processPensionInput);
 	}
 
 }

@@ -29,7 +29,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
-@CrossOrigin
+@RequestMapping("/auth")
 public class AuthController {
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class AuthController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<Map<String, String>> getAuthenticationToken(@RequestBody UserRequest userRequest) throws AuthenticationException{
+	public ResponseEntity<Map<String, String>> getAuthenticationToken(@RequestBody UserRequest userRequest) throws Exception,AuthenticationException{
 		Map<String,String> authToken= new HashMap<>();
 		UserDetails user= myUserService.loadUserByUsername(userRequest.getUsername());
 		authToken.put("token", generateJwt(user.getUsername()));
@@ -50,7 +50,7 @@ public class AuthController {
 	
 	
 	@PostMapping(value = "/authorize")
-	public boolean authorizeAdmin(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader) {
+	public boolean authorizeAdmin(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader) throws Exception {
 		String jwtToken = null;
 		String userName = null;
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {

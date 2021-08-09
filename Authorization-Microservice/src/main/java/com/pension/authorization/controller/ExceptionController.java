@@ -19,6 +19,15 @@ public class ExceptionController {
 		error.setErrorId(HttpStatus.BAD_REQUEST.value());
 		error.setErrorText(e.getMessage());
 		error.setErrorLogTime(""+new Date());
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+		return ResponseEntity.status(HttpStatus.OK).body(error);
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorModel>handleException(Exception e){
+		ErrorModel error= new ErrorModel();
+		error.setErrorId(HttpStatus.BAD_REQUEST.value());
+		error.setErrorText(e.getMessage());
+		error.setErrorLogTime(""+new Date());
+		return ResponseEntity.status(HttpStatus.OK).body(error);
 	}
 }

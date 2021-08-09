@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 		customResponse.setMessage(ex.getMessage());
 		customResponse.setReason("Invalid Aadhar provided");
 		customResponse.setStatus(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.NOT_FOUND);
+		return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
 	}
 	
 	
