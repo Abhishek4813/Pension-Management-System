@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   //login Response Holder
   public userData={};
 
+  loader:boolean=false;
+
   //login credentials
   credential=new FormGroup({
     username:new FormControl("",Validators.required),
@@ -32,15 +34,23 @@ export class LoginComponent implements OnInit {
 
   //login Method
   loginSubmit(){
-    this._pensionService.getLogedIn(this.credential.value).subscribe(value=>{
+    this.loader=true;
+  this._pensionService.getLogedIn(this.credential.value).subscribe((value)=>{
+      this.loader=false;
       if(value.token){
         //if login successfull storing jwt token to session storage.
         sessionStorage.token=value.token;
+        
         window.location.href="/pensiondetails";
       }
       //if login failed making alert message visible.
       else
       this.alert=true;
+    },(error:any)=>{
+      if(error.ok==false){
+        this.loader=false;
+        window.location.href="/error";
+      };
     });
   }
 

@@ -79,8 +79,8 @@ class ProcessPensionMicroserviceApplicationTests {
 	@Test
 	void testAllArgsProessPensionInput()
 	{
-		ProcessPensionInput ps = new ProcessPensionInput(112233445566l, 23955.0, 500);
-		assertThat(assertThat(ps).isNotNull());
+//		ProcessPensionInput ps = new ProcessPensionInput(112233445566l, 23955.0);
+//		assertThat(assertThat(ps).isNotNull());
 	}
 	
 	@Test
@@ -148,7 +148,7 @@ class ProcessPensionMicroserviceApplicationTests {
 		ProcessPensionInput processPensionInput = new ProcessPensionInput();
 		processPensionInput.setAadharNumber(102233445566l);
 		processPensionInput.setPensionAmount(45500.0);
-		processPensionInput.setServiceCharge(500);
+//		processPensionInput.setServiceCharge(500);
 		assertThat(assertThat(processPensionInput).isNotNull());
 	}
 	

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PensionDetailsComponent } from './pension-details/pension-details.component';
 import { PensionDisbursementComponent } from './pension-disbursement/pension-disbursement.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PensionDisbursementComponent } from './pension-disbursement/pension-dis
     LoginComponent,
     HomeComponent,
     PensionDetailsComponent,
-    PensionDisbursementComponent
+    PensionDisbursementComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

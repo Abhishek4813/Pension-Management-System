@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.error-container{
+height:92vh;
+width:100%;
+background-image:linear-gradient(to right,rgba(40,78,93,255),rgba(70,103,119,255),rgba(70,104,119,255)
+    ,rgba(38,78,92,255),rgba(40,78,93,255)) ;
+display:flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+.error-container div h3{
+text-align: center;
+color:white;
+font-weight:bold;
+font-size:32px;
+font-family: 'Anton', sans-serif;
+letter-spacing: 4px;
+}
+.button{
+    margin-top:150px;
+}

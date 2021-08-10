@@ -18,7 +18,7 @@ public class PensionerDetail {
 	private String dateOfBirth;
 	private String pan;
 	private double salary;
-	private double allowances;
+	private double allowance;
 	private String pensionType;
 	private Bank bank;
 

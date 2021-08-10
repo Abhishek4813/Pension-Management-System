@@ -5,7 +5,7 @@
 <div class="container-fluid content">
 <div class="alert alert-danger alert-dismissible fade show alert-styling" *ngIf=alert>
   <button type="button" class="close" (click)="alert=false">&times;</button>
-  <strong>Invalid pensioner detail provided !</strong> please provide valid detai.
+  <strong>Invalid pensioner detail provided !</strong> please provide valid detail.
 </div>
 <form [formGroup]="pensionDetails" (ngSubmit)="submitDetails()">
     <div class="row" >
@@ -75,6 +75,10 @@
   <img src="assets/loader.gif">
 </div>
   <p class="h3 text-info">Loading...</p>
+</div>
+<div class="loader" *ngIf="authFailed">
+  <h3 class="text-warning msg-heading">Session Timout</h3>
+  <p class="text-info">Redirecting to Login in 3 seconds....</p>
 </div>
 <app-pension-disbursement *ngIf=!toggler [data]="pensionerData" [aadhar]="aadhar"></app-pension-disbursement>
 

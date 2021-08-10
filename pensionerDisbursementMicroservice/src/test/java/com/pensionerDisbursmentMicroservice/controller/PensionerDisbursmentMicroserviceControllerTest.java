@@ -73,7 +73,7 @@ public class PensionerDisbursmentMicroserviceControllerTest {
 		ProcessPensionInput processPensionInput = new ProcessPensionInput(112233445566L, 46500.00, serviceCharge);
 		ProcessPensionResponse ppr = new ProcessPensionResponse();
 		ppr.setPensionStatusCode(10);
-		when(service.code(bank, serviceCharge)).thenReturn(ppr);
+//		when(service.code(bank, serviceCharge)).thenReturn(ppr);
 		when(client.getPensionerDetailByAadhaar("",112233445566L)).thenReturn(new PensionerDetail("Padmini", "30-08-2000", "PCASD1234Q", 45000, 2000, "family", bank));
 		when(authorizationServiceClient.authorizeRequest("")).thenReturn(true);
 		response = controller.getcode("",processPensionInput);

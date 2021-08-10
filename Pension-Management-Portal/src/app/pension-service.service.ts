@@ -26,7 +26,7 @@ export class PensionServiceService {
     
 
     //http request for login
-    return this._http.post<any>(this._url+"process/pensionerInput",{name:data.name,
+    return this._http.post<any>(this._url+"process/PensionDetail",{name:data.name,
             dateOfBirth:data.dateOfBirth,
             pan: data.pan,
             aadharNumber:Number(data.aadharNumber),

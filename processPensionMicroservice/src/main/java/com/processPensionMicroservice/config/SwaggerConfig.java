@@ -1,6 +1,8 @@
 package com.processPensionMicroservice.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.google.common.base.Predicates;
@@ -14,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+@ComponentScan("com.*")
 public class SwaggerConfig {
 	@Bean
 	public Docket configureSwagger2() {
@@ -23,6 +26,11 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
+	}
+	
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 
 }

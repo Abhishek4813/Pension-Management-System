@@ -11,6 +11,7 @@ export class PensionDisbursementComponent implements OnInit {
   toggler:boolean=false;
   loader:boolean=true;
   disburse:boolean= false;
+  authFailed:boolean=false;
   @Input() data:any={};
   @Input() aadhar:string="";
   constructor(private _service:PensionServiceService) { }
@@ -20,21 +21,31 @@ export class PensionDisbursementComponent implements OnInit {
 
   doDisburse(){
    this.toggler= true;
-   let i=0;
    this._service.disburse({
      aadharNumber: this.aadhar,
      pensionAmount: this.data.pensionAmount,
-     serviceCharge: 500
    }).subscribe(value=>{
+     this.loader=false;
      console.log(value.pensionStatusCode);
-     if(value.pensionStatusCode==10){
-       this.loader=false;
+     if(value.message=="User not authorized"){
+      sessionStorage.removeItem("token");
+      this.authFailed=true;
+      setTimeout(()=>{
+        window.location.href="/login";
+      },3000);
+      
+    }
+    else if(value.pensionStatusCode==10){
        this.disburse=true;
      }
-     if(value.pensionStatusCode==21){
-       this.loader=false;
+    else if(value.pensionStatusCode==21){
        this.disburse=false;
      }
-   });
+   },(error:any)=>{
+    if(error.ok==false){
+      this.loader=false;
+      window.location.href="/error";
+    };
+  });
   }
   }

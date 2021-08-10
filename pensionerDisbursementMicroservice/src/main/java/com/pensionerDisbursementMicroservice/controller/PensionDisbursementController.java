@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pensionerDisbursementMicroservice.Exception.PensionerDetailNotFoundException;
+import com.pensionerDisbursementMicroservice.Model.PensionerDetail;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
 import com.pensionerDisbursementMicroservice.client.AuthorizationServiceClient;
@@ -45,6 +46,32 @@ public class PensionDisbursementController {
 	 * 550 } Output: 21 (failure code)
 	 */
 
+//	@PostMapping("/disbursePension")
+//	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,
+//			@RequestBody ProcessPensionInput processPensionInput) throws Exception {
+//
+//		log.info("Start getcode");
+//		if (authorizationServiceClient.authorizeRequest(header)) {
+//			try {
+//				ProcessPensionResponse processPensionResponse = pensionDisbursmentService.code(pensionDetailsClient
+//						.getPensionerDetailByAadhaar(header,processPensionInput.getAadharNumber()).getBank(),
+//						processPensionInput.getServiceCharge());
+//
+//				log.debug("The code is " + processPensionResponse);
+//
+//				log.info("End getcode");
+//
+//				return processPensionResponse;
+//			} catch (PensionerDetailNotFoundException e) {
+//				throw new PensionerDetailNotFoundException("pensioneer with given aadhaar number "
+//						+ processPensionInput.getAadharNumber() + " is not found ");
+//			}
+//		} else {
+//			throw new Exception("User Not Authorized");
+//		}
+//
+//	}
+
 	@PostMapping("/disbursePension")
 	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,
 			@RequestBody ProcessPensionInput processPensionInput) throws Exception {
@@ -52,10 +79,11 @@ public class PensionDisbursementController {
 		log.info("Start getcode");
 		if (authorizationServiceClient.authorizeRequest(header)) {
 			try {
-				ProcessPensionResponse processPensionResponse = pensionDisbursmentService.code(pensionDetailsClient
-						.getPensionerDetailByAadhaar(header,processPensionInput.getAadharNumber()).getBank(),
-						processPensionInput.getServiceCharge());
-
+				PensionerDetail pensionerDetail = pensionDetailsClient.getPensionerDetailByAadhaar(header,
+						processPensionInput.getAadharNumber());
+				System.out.println(pensionerDetail.getAllowance()+" "+pensionerDetail.getName()+" "+pensionerDetail.getBank()+" "+pensionerDetail.getDateOfBirth()+" "+pensionerDetail.getPan()+" "+
+						pensionerDetail.getPensionType()+" "+pensionerDetail.getSalary());
+				ProcessPensionResponse processPensionResponse=pensionDisbursmentService.code(pensionerDetail, processPensionInput);
 				log.debug("The code is " + processPensionResponse);
 
 				log.info("End getcode");

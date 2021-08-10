@@ -77,6 +77,9 @@
     height:150px;
     width:150px;
 }
+.msg-heading{
+    font-family: 'Anton', sans-serif;
+}
 @media only screen and (max-width:580px){
     .heading-text{
         font-size: 28px;

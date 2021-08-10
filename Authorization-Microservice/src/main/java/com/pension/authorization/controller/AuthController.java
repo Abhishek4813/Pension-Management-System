@@ -37,6 +37,11 @@ public class AuthController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+//	@GetMapping("/docs")
+//	public String swaggerRedirect() {
+//		return "redirect:/documentation";
+//	}
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<Map<String, String>> getAuthenticationToken(@RequestBody UserRequest userRequest) throws Exception,AuthenticationException{
@@ -80,8 +85,8 @@ public class AuthController {
 			String user=jws.getBody().getSubject();
 			return user;	
 		}
-	@GetMapping("/actuator/info")
-	public String actuatorInfo() {
-		return "Authentication service is up and running";
-	}
+//	@GetMapping("/actuator/info")
+//	public String actuatorInfo() {
+//		return "Authentication service is up and running";
+//	}
 	}

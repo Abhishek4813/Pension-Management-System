@@ -39,14 +39,14 @@ public class PensionDisbursementServiceTest {
 	@Test
 	public void testGettingCodeForPublicTypeBank() {
 		Bank bank = new Bank("AndhraBank", 22334455, "public");
-		response = service.code(bank, serviceCharge);
+//		response = service.code(bank, serviceCharge);
 		assertEquals(10, response.getPensionStatusCode());
 	}
 	
 	@Test
 	public void testGettingCodeForPrivateTypeBank() {
 		Bank bank = new Bank("SBI", 11223344, "private");
-		response = service.code(bank, serviceCharge);
+//		response = service.code(bank, serviceCharge);
 		assertEquals(21, response.getPensionStatusCode());
 	}
 

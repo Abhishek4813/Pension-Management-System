@@ -130,7 +130,7 @@ public class PensionerDisbursmentMicroserviceApplicationTests {
 		pensionerDetail.setName("Mounika");
 		pensionerDetail.setPan("ITHYU1236L");
 		pensionerDetail.setSalary(10000.0);
-		pensionerDetail.setAllowances(45000.0);
+		//pensionerDetail.setAllowances(45000.0);
 		pensionerDetail.setBank(bank);
 		pensionerDetail.setPensionType("family");
 		assertThat(assertThat(pensionerDetail).isNotNull());

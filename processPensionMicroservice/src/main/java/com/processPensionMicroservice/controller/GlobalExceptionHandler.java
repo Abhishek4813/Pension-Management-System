@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.processPensionMicroservice.exception.AuthorizationException;
+import com.processPensionMicroservice.exception.PensionerDetailsException;
 import com.processPensionMicroservice.exception.PensionerNotFoundException;
 import com.processPensionMicroservice.model.CustomErrorResponse;
 
@@ -23,8 +25,28 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
 	}
 	
+	@ExceptionHandler(PensionerDetailsException.class)
+	public ResponseEntity<CustomErrorResponse> handlePensionerDetailsException(PensionerDetailsException ex){
+		CustomErrorResponse customResponse=new CustomErrorResponse();
+		customResponse.setTimestamp(LocalDateTime.now());
+		customResponse.setMessage(ex.getMessage());
+		customResponse.setReason("Invalid Pensioner detail Provided.");
+		customResponse.setStatus(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
+	}
 	
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<CustomErrorResponse> handleAuthorizationException(AuthorizationException ex){
+		CustomErrorResponse customResponse=new CustomErrorResponse();
+		customResponse.setTimestamp(LocalDateTime.now());
+		customResponse.setMessage(ex.getMessage());
+		customResponse.setReason("Unauthorized Access");
+		customResponse.setStatus(HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
+	}
+	
+	
+	/*@ExceptionHandler(Exception.class)
     public ResponseEntity<CustomErrorResponse> handleException(Exception ex){
         CustomErrorResponse customResponse=new CustomErrorResponse();
         customResponse.setTimestamp(LocalDateTime.now());
@@ -32,7 +54,7 @@ public class GlobalExceptionHandler {
         customResponse.setReason("Invalid Request Information");
         customResponse.setStatus(HttpStatus.BAD_REQUEST);
         return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.BAD_REQUEST);
-    }
+    }*/
 	
 //	@ExceptionHandler(Exception.class)
 //    public ResponseEntity<CustomErrorResponse> handleAuthorizationException(Exception ex){

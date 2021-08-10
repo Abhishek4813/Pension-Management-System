@@ -29,7 +29,7 @@ public class PensionerDetailsController {
 	private AuthorizationClient authorizationClient;
 	
 	/*
-	 * POST:   localhost:8082/pensionerDetailByAadhaar/102233445566
+	 * POST:   localhost:8082/details/pensionerDetailByAadhaar/102233445566
 	 * 
 	 */
 
@@ -44,7 +44,6 @@ public class PensionerDetailsController {
 				return pensionerdetailService.getPensionerDetailByAadhaarNumber(aadhaarNumber);
 			}else {
 				throw new Exception("User Not Authorized");
-			}
-			
+			}			
 	}
 }

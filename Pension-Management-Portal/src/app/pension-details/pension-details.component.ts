@@ -11,6 +11,7 @@ export class PensionDetailsComponent implements OnInit {
   toggler:boolean=true;
   alert:boolean=false;
   loader:boolean=false;
+  authFailed:boolean=false;
   pensionerData:any={};
   aadhar:string="";
   constructor(private _service:PensionServiceService) { }
@@ -32,16 +33,28 @@ export class PensionDetailsComponent implements OnInit {
   submitDetails(){
     this.loader=true;
     this._service.getPensionDetails(this.pensionDetails.value).subscribe(value=>{
-      if(value==null){
-        this.loader=false;
+      this.loader=false;
+      if(value.message=="User not authorized"){
+        sessionStorage.removeItem("token");
+        this.authFailed=true;
+        setTimeout(()=>{
+          window.location.href="/login";
+        },3000);
+        
+      }
+      else if (value.status== "NOT_FOUND"){  
         this.alert=true;
       }
       else{
       this.pensionerData=value;
       this.aadhar=this.pensionDetails.value.aadharNumber;
       this.toggler=false;
-      this.loader=false;
       }
+    },(error:any)=>{
+      if(error.ok==false){
+        this.loader=false;
+        window.location.href="/error";
+      };
     });
   }
 
