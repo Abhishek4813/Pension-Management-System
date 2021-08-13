@@ -53,7 +53,7 @@ export class PensionDetailsComponent implements OnInit {
     },(error:any)=>{
       if(error.ok==false){
         this.loader=false;
-        window.location.href="/error";
+       window.location.href="/error";
       };
     });
   }

@@ -1,7 +1,5 @@
 package com.pensionerDetailsMicroservice.Controller;
 
-import java.io.IOException;
-import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pensionerDetailsMicroservice.Exception.AadharNumberNotFoundException;
 import com.pensionerDetailsMicroservice.Model.PensionerDetail;
 import com.pensionerDetailsMicroservice.Service.PensionerdetailService;
 import com.pensionerDetailsMicroservice.client.AuthorizationClient;

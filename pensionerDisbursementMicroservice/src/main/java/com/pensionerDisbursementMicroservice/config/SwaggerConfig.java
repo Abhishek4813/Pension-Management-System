@@ -2,6 +2,8 @@ package com.pensionerDisbursementMicroservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.google.common.base.Predicates;
 
@@ -14,7 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+@SuppressWarnings("deprecation")
+public class SwaggerConfig extends WebMvcConfigurerAdapter{
 	@Bean
 	public Docket configureSwagger2() {
 
@@ -25,4 +28,8 @@ public class SwaggerConfig {
                 .build();
 	}
 
+	@Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/disburse/docs","/swagger-ui.html");
+    }
 }

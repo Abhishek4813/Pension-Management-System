@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +7,10 @@ import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 export class PensionServiceService {
 
   //base url
-  private _url="http://localhost:8090/";
+  public _url="http://localhost:8090/";
   constructor(private _http:HttpClient) { }
 
-  //serice method for login
+  //service method for login
   getLogedIn(credential:any){
     return this._http.post<any>(this._url+"auth/authenticate",credential);
   }
@@ -28,7 +28,7 @@ export class PensionServiceService {
     //http request for login
     return this._http.post<any>(this._url+"process/PensionDetail",{name:data.name,
             dateOfBirth:data.dateOfBirth,
-            pan: data.pan,
+            pan: data.pan.toUpperCase(),
             aadharNumber:Number(data.aadharNumber),
             pensionType:data.pensionType},{
               headers:header 

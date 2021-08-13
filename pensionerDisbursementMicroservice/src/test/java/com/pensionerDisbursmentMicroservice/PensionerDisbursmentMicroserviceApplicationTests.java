@@ -3,13 +3,11 @@ package com.pensionerDisbursmentMicroservice;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ActiveProfiles;
 
 import com.pensionerDisbursementMicroservice.PensionerDisbursmentMicroserviceApplication;
 import com.pensionerDisbursementMicroservice.Model.Bank;
@@ -74,7 +72,7 @@ public class PensionerDisbursmentMicroserviceApplicationTests {
 	@Test
 	void testAllArgsCustomErrorResponse()
 	{
-		CustomErrorResponse cr = new CustomErrorResponse( LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789), HttpStatus.NOT_FOUND, "Not found", "Bad request");
+		CustomErrorResponse cr = new CustomErrorResponse( LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789), HttpStatus.NOT_FOUND, "Not found", Arrays.asList(new String[] {"Not Found"}));
 		assertThat(assertThat(cr).isNotNull());
 	}
 	
@@ -111,7 +109,7 @@ public class PensionerDisbursmentMicroserviceApplicationTests {
 	void testSetterCustomErrorResponse()
 	{
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
-		customErrorResponse.setMessage("Not Found");
+		customErrorResponse.setMessage(Arrays.asList(new String[] {"Not Found"}));
 		customErrorResponse.setReason("Missing detail");
 		customErrorResponse.setStatus(HttpStatus.NOT_FOUND);
 		customErrorResponse.setTimestamp(LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789));

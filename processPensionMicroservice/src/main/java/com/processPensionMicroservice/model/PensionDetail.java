@@ -18,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 public class PensionDetail {
 
 	private String name;

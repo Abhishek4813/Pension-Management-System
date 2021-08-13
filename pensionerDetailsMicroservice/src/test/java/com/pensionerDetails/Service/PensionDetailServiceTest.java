@@ -6,13 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 import java.text.ParseException;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,6 +20,7 @@ import com.pensionerDetailsMicroservice.Service.PensionerdetailService;
 import com.pensionerDetailsMicroservice.Util.DateUtil;
 @SpringBootTest(classes = PensionDetailServiceTest.class)
 @AutoConfigureMockMvc
+@SuppressWarnings("deprecation")
 public class PensionDetailServiceTest {
 
 	@InjectMocks

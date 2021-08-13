@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.pensionerDetailsMicroservice.Controller.GlobalExceptionHandler;
 import com.pensionerDetailsMicroservice.Exception.AadharNumberNotFoundException;
+import com.pensionerDetailsMicroservice.Exception.GlobalExceptionHandler;
 import com.pensionerDetailsMicroservice.Model.CustomErrorResponse;
 
 

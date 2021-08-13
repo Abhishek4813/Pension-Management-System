@@ -1,6 +1,7 @@
 package com.pensionerDisbursementMicroservice.controller;
 
-import java.io.IOException;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,35 +47,11 @@ public class PensionDisbursementController {
 	 * 550 } Output: 21 (failure code)
 	 */
 
-//	@PostMapping("/disbursePension")
-//	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,
-//			@RequestBody ProcessPensionInput processPensionInput) throws Exception {
-//
-//		log.info("Start getcode");
-//		if (authorizationServiceClient.authorizeRequest(header)) {
-//			try {
-//				ProcessPensionResponse processPensionResponse = pensionDisbursmentService.code(pensionDetailsClient
-//						.getPensionerDetailByAadhaar(header,processPensionInput.getAadharNumber()).getBank(),
-//						processPensionInput.getServiceCharge());
-//
-//				log.debug("The code is " + processPensionResponse);
-//
-//				log.info("End getcode");
-//
-//				return processPensionResponse;
-//			} catch (PensionerDetailNotFoundException e) {
-//				throw new PensionerDetailNotFoundException("pensioneer with given aadhaar number "
-//						+ processPensionInput.getAadharNumber() + " is not found ");
-//			}
-//		} else {
-//			throw new Exception("User Not Authorized");
-//		}
-//
-//	}
+
 
 	@PostMapping("/disbursePension")
 	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,
-			@RequestBody ProcessPensionInput processPensionInput) throws Exception {
+			@Valid @RequestBody ProcessPensionInput processPensionInput) throws Exception {
 
 		log.info("Start getcode");
 		if (authorizationServiceClient.authorizeRequest(header)) {

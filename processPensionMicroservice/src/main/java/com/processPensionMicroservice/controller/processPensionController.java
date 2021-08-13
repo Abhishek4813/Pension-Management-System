@@ -2,17 +2,15 @@ package com.processPensionMicroservice.controller;
 
 import java.io.IOException;
 
-//import org.hibernate.cache.spi.SecondLevelCacheLogger_.logger;
+import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.processPensionMicroservice.client.AuthorizationClient;
 import com.processPensionMicroservice.client.PensionDisbursementClient;
@@ -26,9 +24,9 @@ import com.processPensionMicroservice.model.PensionerInput;
 import com.processPensionMicroservice.model.ProcessInput;
 import com.processPensionMicroservice.model.ProcessPensionInput;
 import com.processPensionMicroservice.model.ProcessPensionResponse;
-import com.processPensionMicroservice.repository.ProcessPensionRepository;
 import com.processPensionMicroservice.service.ProcessPensionService;
 
+import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -44,9 +42,9 @@ public class processPensionController {
 	private ProcessPensionService processPensionService;
 	@Autowired
 	private AuthorizationClient authorizationClient;
-	
+
 	@Autowired
-	private ModelMapper modelMapper ;
+	private ModelMapper modelMapper;
 
 	/*
 	 * POST: localhost:8084/process/pensionDetail
@@ -57,7 +55,8 @@ public class processPensionController {
 
 	@PostMapping("/PensionDetail")
 	public PensionDetail getPensionDetails(@RequestHeader("Authorization") String header,
-			@RequestBody PensionerInput pensionerInput) throws PensionerNotFoundException, PensionerDetailsException, AuthorizationException {
+			@Valid @RequestBody PensionerInput pensionerInput)
+			throws PensionerNotFoundException, PensionerDetailsException, AuthorizationException,RetryableException {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		log.info("start getPensionDetails");
 
@@ -66,17 +65,20 @@ public class processPensionController {
 		if (authorizationClient.authorizeRequest(header)) {
 			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,
 					pensionerInput.getAadharNumber());
-			if(pensionerDetail==null || pensionerDetail.getName()==null) {
+			log.info(pensionerDetail.getName());
+			if (pensionerDetail == null || pensionerDetail.getName() == null) {
 				throw new PensionerNotFoundException("Pensioner with given aadhar not found");
 			}
-			PensionerDetail receivedPensionerDetail=modelMapper.map(pensionerInput, PensionerDetail.class);
-			if(pensionerDetail.compareTo(receivedPensionerDetail) == -1) {
+			PensionerDetail receivedPensionerDetail = modelMapper.map(pensionerInput, PensionerDetail.class);
+			if (pensionerDetail.compareTo(receivedPensionerDetail) == -1) {
 				throw new PensionerDetailsException("Incorrect Pensioner Details.");
 			}
-			
-			double pensionAmount=processPensionService.getresult(pensionerDetail);
-			PensionDetail pensionDetail= modelMapper.map(pensionerDetail, PensionDetail.class);
+
+			double pensionAmount = processPensionService.getresult(pensionerDetail);
+			log.info(""+pensionAmount);
+			PensionDetail pensionDetail = modelMapper.map(pensionerDetail, PensionDetail.class);
 			pensionDetail.setPensionAmount(pensionAmount);
+			log.info(""+pensionDetail.getPensionAmount());
 			return pensionDetail;
 
 		} else {
@@ -86,21 +88,28 @@ public class processPensionController {
 	}
 
 	/*
-	 * POST: localhost:8081/ProcessPension
+	 * POST: localhost:8084/process/ProcessPension
 	 * 
 	 * { "aadharNumber" : 112233445566, "pensionAmount": 23955.0, "serviceCharge":
 	 * 500 }
 	 */
 	@PostMapping("/ProcessPension")
 	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,
-			@RequestBody ProcessInput processInput) throws IOException, PensionerNotFoundException {
+			@Valid @RequestBody ProcessInput processInput)
+			throws AuthorizationException, IOException, PensionerNotFoundException {
 		log.info("start processPension");
-		PensionerDetail pensionerDetail=pensionerDetailClient.getPensionerDetailByAadhaar(header, processInput.getAadharNumber());
-		double serviceCharge=processPensionService.getServiceCharge(pensionerDetail.getBank().getBankType());
-		
-		ProcessPensionInput processPensionInput=new ProcessPensionInput(processInput.getAadharNumber(),processInput.getPensionAmount(),serviceCharge);
-		log.info("end processPension");		
-		return pensionDisbursementClient.getcode(header, processPensionInput);
+		if (authorizationClient.authorizeRequest(header)) {
+			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,
+					processInput.getAadharNumber());
+			double serviceCharge = processPensionService.getServiceCharge(pensionerDetail.getBank().getBankType());
+			ProcessPensionInput processPensionInput = new ProcessPensionInput(processInput.getAadharNumber(),
+					processInput.getPensionAmount(), serviceCharge);
+			log.info("End ProcessPension");
+			return pensionDisbursementClient.getcode(header, processPensionInput);
+		} else {
+			throw new AuthorizationException("User not authorized");
+		}
+
 	}
 
 }

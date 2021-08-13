@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PensionDisbursmentService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">pensionerDisbursementMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.pensionerDisbursementMicroservice.service</a> &gt; <span class="el_source">PensionDisbursmentService.java</span></div><h1>PensionDisbursmentService.java</h1><pre class="source lang-java linenums">package com.pensionerDisbursementMicroservice.service;
+
+import org.springframework.stereotype.Service;
+
+import com.pensionerDisbursementMicroservice.Model.PensionerDetail;
+import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
+import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
+
+@Service
+<span class="fc" id="L10">public class PensionDisbursmentService {</span>
+
+	
+	public ProcessPensionResponse code(PensionerDetail pensionerDetail, ProcessPensionInput processPensionInput) {
+<span class="fc" id="L14">		ProcessPensionResponse processPensionResponse = new ProcessPensionResponse();</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">		double serviceCharge = pensionerDetail.getBank().getBankType().equalsIgnoreCase(DetailsUtil.BANK_TYPE_1) ? DetailsUtil.PUBLIC_BANK_CHARGE : DetailsUtil.PRIVATE_BANK_CHARGE;</span>
+		
+<span class="fc bfc" id="L17" title="All 2 branches covered.">		double pensionAmount=pensionerDetail.getPensionType().equalsIgnoreCase(DetailsUtil.PENSION_TYPE_1)?((0.8*pensionerDetail.getSalary())+pensionerDetail.getAllowance()):((0.5*pensionerDetail.getSalary())+pensionerDetail.getAllowance());</span>
+<span class="fc bfc" id="L18" title="All 4 branches covered.">		if (serviceCharge == processPensionInput.getServiceCharge() &amp;&amp; pensionAmount==processPensionInput.getPensionAmount())</span>
+<span class="fc" id="L19">			processPensionResponse.setPensionStatusCode(DetailsUtil.DISBURSE_SUCCESSFULL);</span>
+
+		else {
+<span class="fc" id="L22">			processPensionResponse.setPensionStatusCode(DetailsUtil.DISBURSE_FAILED);</span>
+
+		}
+
+<span class="fc" id="L26">		return processPensionResponse;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -20,7 +20,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import lombok.extern.log4j.Log4j2;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter{

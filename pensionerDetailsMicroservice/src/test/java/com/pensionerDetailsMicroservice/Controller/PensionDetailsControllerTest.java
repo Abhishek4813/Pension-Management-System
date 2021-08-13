@@ -5,14 +5,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.pensionerDetailsMicroservice.Exception.AadharNumberNotFoundException;
 import com.pensionerDetailsMicroservice.Model.Bank;
 import com.pensionerDetailsMicroservice.Model.PensionerDetail;
 import com.pensionerDetailsMicroservice.Service.PensionerdetailService;

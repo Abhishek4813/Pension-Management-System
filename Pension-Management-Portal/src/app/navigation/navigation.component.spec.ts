@@ -18,8 +18,13 @@ describe('NavigationComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  
+  it("Test Navigation",()=>{
+      let comp=new NavigationComponent();
+      if(sessionStorage.getItem("token"))
+        expect(comp.login).toEqual("Logout");
+      else
+        expect(comp.login).toEqual("Login");
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  })
 });

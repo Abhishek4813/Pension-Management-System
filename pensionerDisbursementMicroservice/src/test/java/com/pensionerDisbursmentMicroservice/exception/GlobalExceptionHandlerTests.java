@@ -3,6 +3,8 @@ package com.pensionerDisbursmentMicroservice.exception;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.pensionerDisbursementMicroservice.Exception.GlobalExceptionHandler;
 import com.pensionerDisbursementMicroservice.Exception.PensionerDetailNotFoundException;
 import com.pensionerDisbursementMicroservice.Model.CustomErrorResponse;
-import com.pensionerDisbursementMicroservice.controller.GlobalExceptionHandler;
 
 @SpringBootTest(classes = GlobalExceptionHandlerTests.class)
 public class GlobalExceptionHandlerTests {
@@ -24,8 +26,11 @@ public class GlobalExceptionHandlerTests {
 	CustomErrorResponse customErrorResponse;
 	@BeforeEach
 	void setUp() {
-		customErrorResponse = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND,"Error","test message");
+		List<String> message=new ArrayList<String>();
+		message.add("test message");
+		customErrorResponse = new CustomErrorResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND,"Error",message);
 	}
+	
 	
 	@Test
 	void handlesPensionerDetailNotFoundExceptionTest() {

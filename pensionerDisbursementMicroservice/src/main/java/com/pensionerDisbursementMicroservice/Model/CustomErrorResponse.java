@@ -1,6 +1,7 @@
 package com.pensionerDisbursementMicroservice.Model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
@@ -20,6 +21,6 @@ public class CustomErrorResponse {
 	private LocalDateTime timestamp;
 	private HttpStatus status;
 	private String reason;
-	private String message;
+	private List<String> message;
 
 }

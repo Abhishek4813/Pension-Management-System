@@ -1,8 +1,10 @@
 package com.processPensionMicroservice;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -21,17 +23,8 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 
 @SpringBootTest(classes = ProcessPensionMicroserviceApplicationTests.class)
-class ProcessPensionMicroserviceApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	void main()
-	{
-		ProcessPensionMicroserviceApplication.main(new String[] {});
-	}	
+@SuppressWarnings("deprecation")
+class ProcessPensionMicroserviceApplicationTests {	
 	
 	@Test
 	void testPensionerDeatil() {
@@ -67,7 +60,7 @@ class ProcessPensionMicroserviceApplicationTests {
 	void testAllArgsProessPensionResponce()
 	{
 		ProcessPensionResponse ps = new ProcessPensionResponse(10);
-		assertThat(assertThat(ps).isNotNull());
+		assertThat(ps).isNotNull();
 	}
 	
 	@Test
@@ -77,10 +70,16 @@ class ProcessPensionMicroserviceApplicationTests {
 	}
 	
 	@Test
+	void allArgsBank() {
+		Bank bank = new Bank("SBI",112233445566L,"Public");
+		assertThat(bank).isNotNull();
+	}
+	
+	@Test
 	void testAllArgsProessPensionInput()
 	{
-//		ProcessPensionInput ps = new ProcessPensionInput(112233445566l, 23955.0);
-//		assertThat(assertThat(ps).isNotNull());
+		ProcessPensionInput ps = new ProcessPensionInput(112233445566l, 23955.0,500);
+		assertThat(ps).isNotNull();
 	}
 	
 	@Test
@@ -104,8 +103,8 @@ class ProcessPensionMicroserviceApplicationTests {
 	@Test
 	void testAllArgsCustomErrorResponse()
 	{
-		CustomErrorResponse cr = new CustomErrorResponse( LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789), HttpStatus.NOT_FOUND, "Not found", "Bad request");
-		assertThat(assertThat(cr).isNotNull());
+		CustomErrorResponse cr = new CustomErrorResponse( LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789), HttpStatus.NOT_FOUND, "Not found", Arrays.asList("Bad request"));
+		assertThat(cr).isNotNull();
 	}
 	
 	@Test
@@ -129,7 +128,7 @@ class ProcessPensionMicroserviceApplicationTests {
 		pd.setPan("GTYIK7412L");
 		pd.setPensionAmount(29950.0);
 		pd.setPensionType("family");
-		assertThat(assertThat(pd).isNotNull());
+		assertThat(pd).isNotNull();
 	}
 	
 	@Test
@@ -139,7 +138,7 @@ class ProcessPensionMicroserviceApplicationTests {
 		bank.setAccountNumber(22334455);
 		bank.setBankName("SBI");
 		bank.setBankType("public");
-		assertThat(assertThat(bank).isNotNull());
+		assertThat(bank).isNotNull();
 	}
 	
 	@Test
@@ -148,8 +147,8 @@ class ProcessPensionMicroserviceApplicationTests {
 		ProcessPensionInput processPensionInput = new ProcessPensionInput();
 		processPensionInput.setAadharNumber(102233445566l);
 		processPensionInput.setPensionAmount(45500.0);
-//		processPensionInput.setServiceCharge(500);
-		assertThat(assertThat(processPensionInput).isNotNull());
+		processPensionInput.setServiceCharge(500);
+		assertThat(processPensionInput).isNotNull();
 	}
 	
 	@Test
@@ -167,8 +166,23 @@ class ProcessPensionMicroserviceApplicationTests {
 		pensionerDetail.setBank(bank);
 		pensionerDetail.setSalary(100000.0);
 		pensionerDetail.setPensionType("family");
-		assertThat(assertThat(pensionerDetail).isNotNull());
+		assertThat(pensionerDetail).isNotNull();
 	}
+	
+	@Test
+	void testPensionerDetailCompareTo() {
+		Bank bank=new Bank();
+		bank.setAccountNumber(11223344);
+		bank.setBankName("SBI");
+		bank.setBankType("public");
+		PensionerDetail pensionerDetail1= new PensionerDetail("Mounika",new Date(1999, 12, 10),"ITHYU1236L",100000.0,45000.0,"family",bank);
+		PensionerDetail pensionerDetail2= new PensionerDetail("Mounika",new Date(1999, 12, 10),"ITHYU1236L",100000.0,45000.0,"family",bank);
+		PensionerDetail pensionerDetail3= new PensionerDetail("Parul",new Date(1999, 12, 10),"ITHYU1236L",100000.0,45000.0,"family",bank);
+		assertThat(pensionerDetail1).isNotNull();
+		assertEquals(0,pensionerDetail1.compareTo(pensionerDetail2));
+		assertEquals(-1,pensionerDetail3.compareTo(pensionerDetail1));
+	}
+	
 	
 	@Test
 	void testSetterPensionerInput()
@@ -179,18 +193,18 @@ class ProcessPensionMicroserviceApplicationTests {
 		pensionerInput.setDateOfBirth(new Date(1999, 12, 10));
 		pensionerInput.setPan("ITHYU1236L");
 		pensionerInput.setPensionType("family");
-		assertThat(assertThat(pensionerInput).isNotNull());
+		assertThat(pensionerInput).isNotNull();
 	}
 	
 	@Test
 	void testSetterCustomErrorResponse()
 	{
 		CustomErrorResponse customErrorResponse = new CustomErrorResponse();
-		customErrorResponse.setMessage("Not Found");
+		customErrorResponse.setMessage(Arrays.asList("Not Found"));
 		customErrorResponse.setReason("Missing detail");
 		customErrorResponse.setStatus(HttpStatus.NOT_FOUND);
 		customErrorResponse.setTimestamp(LocalDateTime.of(2019, 03, 28, 14, 33, 48, 123456789));
-		assertThat(assertThat(customErrorResponse).isNotNull());
+		assertThat(customErrorResponse).isNotNull();
 	}
 }
 

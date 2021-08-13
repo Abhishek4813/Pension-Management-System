@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,7 +26,9 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,13 +40,10 @@ public class AuthController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-//	@GetMapping("/docs")
-//	public String swaggerRedirect() {
-//		return "redirect:/documentation";
-//	}
+	
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<Map<String, String>> getAuthenticationToken(@RequestBody UserRequest userRequest) throws Exception,AuthenticationException{
+	public ResponseEntity<Map<String, String>> getAuthenticationToken(@Valid @RequestBody UserRequest userRequest) throws Exception,AuthenticationException{
 		Map<String,String> authToken= new HashMap<>();
 		UserDetails user= myUserService.loadUserByUsername(userRequest.getUsername());
 		authToken.put("token", generateJwt(user.getUsername()));
@@ -55,17 +54,21 @@ public class AuthController {
 	
 	
 	@PostMapping(value = "/authorize")
-	public boolean authorizeAdmin(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader) throws Exception {
+	public boolean authorizeAdmin(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader)  {
 		String jwtToken = null;
 		String userName = null;
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 			jwtToken = requestTokenHeader.substring(7);
 			try {
 				userName = getUsernameFromToken(jwtToken);
-			} catch (IllegalArgumentException | ExpiredJwtException e) {
+			}
+
+			catch(SignatureException|MalformedJwtException|IllegalArgumentException | ExpiredJwtException e) {
 				return false;
 			}
+
 		}
+		
 		return userName != null;
 
 	}
@@ -76,17 +79,12 @@ public class AuthController {
 		builder.setIssuedAt(new Date());
 		builder.setExpiration(new Date(new Date().getTime()+(30*60*1000)));
 		builder.signWith(SignatureAlgorithm.HS256, "secretkey");
-		String token= builder.compact();
-		return token;
+		return builder.compact();
 	}
 	
 	private String getUsernameFromToken(String token) {
 		Jws<Claims> jws=Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token.replace("Bearer ", ""));
-			String user=jws.getBody().getSubject();
-			return user;	
+			return jws.getBody().getSubject();
 		}
-//	@GetMapping("/actuator/info")
-//	public String actuatorInfo() {
-//		return "Authentication service is up and running";
-//	}
+
 	}
