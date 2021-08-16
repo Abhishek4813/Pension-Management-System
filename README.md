@@ -5,7 +5,7 @@ The project automate pensioner detail provision, calculate provision, initiate p
 ### POST : /auth/authenticate
        {"username":"Jhon","password":"Jhon@1234"}
        For more Credential Refer data.sql in Authorization-Microservice 
-### POST: /process//PensionDetail
+### POST: /process/PensionDetail
       { "name" : "padmini", "dateOfBirth" : "2000-08-30", "pan" : "PCASD1234Q", "aadharNumber" : 102233445566, "pensionType" : "Family" }
       For more PensionerDetails visit pensionersDetails.cvs file in pensionerDetailsMicroservice
 ### POST: /process/ProcessPension
