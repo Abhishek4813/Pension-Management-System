@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class PensionServiceService {
 
   //base url
-  public _url="http://localhost:8090/";
+  public _url="http://3.85.241.195:8090/";
   constructor(private _http:HttpClient) { }
 
   //service method for login

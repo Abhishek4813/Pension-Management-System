@@ -74,7 +74,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         customResponse.setMessage(Arrays.asList(exception.getMessage()));
         customResponse.setReason("Invalid Request Information");
         customResponse.setStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
+        return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.NOT_FOUND);
     }
 	
 	@ExceptionHandler(Exception.class)

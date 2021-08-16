@@ -11,7 +11,7 @@ import com.processPensionMicroservice.exception.PensionerNotFoundException;
 import com.processPensionMicroservice.model.ProcessPensionInput;
 import com.processPensionMicroservice.model.ProcessPensionResponse;
 
-@FeignClient(name = "pensioner-disbursement-service", url = "http://localhost:8083/disburse")
+@FeignClient(name = "pensioner-disbursement-service", url = "http://35.175.136.40:8083/disburse")
 public interface PensionDisbursementClient {
 	@PostMapping("/disbursePension")
 	public ProcessPensionResponse getcode(@RequestHeader("Authorization") String header,@RequestBody ProcessPensionInput processPensionInput)

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.pensionerDisbursementMicroservice.Exception.PensionerDetailNotFoundException;
 import com.pensionerDisbursementMicroservice.Model.PensionerDetail;
 
-@FeignClient(name="pensioner-details-service", url = "http://localhost:8082/details")
+@FeignClient(name="pensioner-details-service", url = "http://3.235.225.18:8082/details")
 public interface PensionDetailsClient {
 	@PostMapping("/pensionerDetailByAadhaar/{aadhaarNumber}")
 	public PensionerDetail getPensionerDetailByAadhaar(@RequestHeader("Authorization") String header,@PathVariable long aadhaarNumber)
