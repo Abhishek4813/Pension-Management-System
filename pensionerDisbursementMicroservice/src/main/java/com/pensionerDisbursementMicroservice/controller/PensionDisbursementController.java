@@ -16,7 +16,7 @@ import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
 import com.pensionerDisbursementMicroservice.client.AuthorizationServiceClient;
 import com.pensionerDisbursementMicroservice.client.PensionDetailsClient;
-import com.pensionerDisbursementMicroservice.service.PensionDisbursmentService;
+import com.pensionerDisbursementMicroservice.service.PensionDisbursementService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -28,7 +28,7 @@ public class PensionDisbursementController {
 	private PensionDetailsClient pensionDetailsClient;
 
 	@Autowired
-	private PensionDisbursmentService pensionDisbursmentService;
+	private PensionDisbursementService pensionDisbursmentService;
 
 	@Autowired
 	private AuthorizationServiceClient authorizationServiceClient;

@@ -32,7 +32,7 @@ import com.processPensionMicroservice.model.PensionerInput;
 import com.processPensionMicroservice.model.ProcessInput;
 import com.processPensionMicroservice.model.ProcessPensionInput;
 import com.processPensionMicroservice.model.ProcessPensionResponse;
-import com.processPensionMicroservice.service.ProcessPensionService;
+import com.processPensionMicroservice.service.ProcessPensionServiceImpl;
 
 import feign.RetryableException;
 
@@ -45,7 +45,7 @@ class ProcessPensionMicroserviceControllerTest {
 	@InjectMocks
 	processPensionController processController; 	
 	@Mock
-	ProcessPensionService processPensionService;
+	ProcessPensionServiceImpl processPensionService;
 	@Mock
 	ModelMapper modelMapper;	
 	@Mock

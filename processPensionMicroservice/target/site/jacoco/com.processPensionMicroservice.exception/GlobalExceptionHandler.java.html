@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.exception</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.exception;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.processPensionMicroservice.model.CustomErrorResponse;
+import feign.RetryableException;
+
+@RestControllerAdvice
+<span class="fc" id="L22">public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{</span>
+
+	@ExceptionHandler(PensionerNotFoundException.class)
+	public ResponseEntity&lt;CustomErrorResponse&gt; handlePensionerNotFoundException(PensionerNotFoundException ex){
+<span class="fc" id="L26">		CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="fc" id="L27">		customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="fc" id="L28">		customResponse.setMessage(Arrays.asList(ex.getMessage()));</span>
+<span class="fc" id="L29">		customResponse.setReason(&quot;Invalid Details provided&quot;);</span>
+<span class="fc" id="L30">		customResponse.setStatus(HttpStatus.NOT_FOUND);</span>
+<span class="fc" id="L31">		return new ResponseEntity&lt;CustomErrorResponse&gt;(customResponse,HttpStatus.OK);</span>
+	}
+	
+	@ExceptionHandler(PensionerDetailsException.class)
+	public ResponseEntity&lt;CustomErrorResponse&gt; handlePensionerDetailsException(PensionerDetailsException ex){
+<span class="fc" id="L36">		CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="fc" id="L37">		customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="fc" id="L38">		customResponse.setMessage(Arrays.asList(ex.getMessage()));</span>
+<span class="fc" id="L39">		customResponse.setReason(&quot;Invalid Pensioner detail Provided.&quot;);</span>
+<span class="fc" id="L40">		customResponse.setStatus(HttpStatus.NOT_FOUND);</span>
+<span class="fc" id="L41">		return new ResponseEntity&lt;CustomErrorResponse&gt;(customResponse,HttpStatus.OK);</span>
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity&lt;CustomErrorResponse&gt; handleAuthorizationException(AuthorizationException ex){
+<span class="fc" id="L46">		CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="fc" id="L47">		customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="fc" id="L48">		customResponse.setMessage(Arrays.asList(ex.getMessage()));</span>
+<span class="fc" id="L49">		customResponse.setReason(&quot;Unauthorized Access&quot;);</span>
+<span class="fc" id="L50">		customResponse.setStatus(HttpStatus.BAD_REQUEST);</span>
+<span class="fc" id="L51">		return new ResponseEntity&lt;CustomErrorResponse&gt;(customResponse,HttpStatus.OK);</span>
+	}
+	
+	@Override
+	protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+       
+<span class="nc" id="L58">		List&lt;FieldError&gt; fieldErrors = ex.getBindingResult().getFieldErrors();</span>
+<span class="nc" id="L59">		List&lt;String&gt; errors = fieldErrors.stream()</span>
+<span class="nc" id="L60">					.map(err -&gt; err.getField() +&quot; : &quot; + err.getDefaultMessage())</span>
+<span class="nc" id="L61">					.collect(Collectors.toList());</span>
+<span class="nc" id="L62">		CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="nc" id="L63">		customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="nc" id="L64">        customResponse.setMessage(errors);</span>
+<span class="nc" id="L65">        customResponse.setReason(&quot;Please provide all inputs in correct manner&quot;);</span>
+<span class="nc" id="L66">        customResponse.setStatus(HttpStatus.NOT_FOUND);</span>
+<span class="nc" id="L67">        return new ResponseEntity&lt;&gt;(customResponse,headers,HttpStatus.OK);</span>
+	}
+	
+	@ExceptionHandler(RetryableException.class)
+    public ResponseEntity&lt;CustomErrorResponse&gt; handleException(RetryableException exception){
+<span class="nc" id="L72">        CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="nc" id="L73">        customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="nc" id="L74">        customResponse.setMessage(Arrays.asList(exception.getMessage()));</span>
+<span class="nc" id="L75">        customResponse.setReason(&quot;Invalid Request Information&quot;);</span>
+<span class="nc" id="L76">        customResponse.setStatus(HttpStatus.BAD_REQUEST);</span>
+<span class="nc" id="L77">        return new ResponseEntity&lt;CustomErrorResponse&gt;(customResponse,HttpStatus.OK);</span>
+    }
+	
+	@ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;CustomErrorResponse&gt; handleAuthorizationException(Exception ex){
+<span class="nc" id="L82">        CustomErrorResponse customResponse=new CustomErrorResponse();</span>
+<span class="nc" id="L83">        customResponse.setTimestamp(LocalDateTime.now());</span>
+<span class="nc" id="L84">        customResponse.setMessage(Arrays.asList(ex.getMessage()));</span>
+<span class="nc" id="L85">        customResponse.setReason(&quot;You must be authorized to access this information&quot;);</span>
+<span class="nc" id="L86">        customResponse.setStatus(HttpStatus.UNAUTHORIZED);</span>
+<span class="nc" id="L87">        return new ResponseEntity&lt;CustomErrorResponse&gt;(customResponse,HttpStatus.OK);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

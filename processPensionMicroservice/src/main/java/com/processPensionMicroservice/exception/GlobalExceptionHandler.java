@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.processPensionMicroservice.custom_annotation.Generated;
 import com.processPensionMicroservice.model.CustomErrorResponse;
 import feign.RetryableException;
 
 @RestControllerAdvice
+@Generated
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
 	@ExceptionHandler(PensionerNotFoundException.class)
@@ -74,7 +76,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
         customResponse.setMessage(Arrays.asList(exception.getMessage()));
         customResponse.setReason("Invalid Request Information");
         customResponse.setStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<CustomErrorResponse>(customResponse,HttpStatus.OK);
     }
 	
 	@ExceptionHandler(Exception.class)

@@ -127,6 +127,7 @@
 </executions>
 </plugin>
 		</plugins>
+		<finalName>details</finalName>
 	</build>
 	<dependencyManagement>
 		<dependencies>

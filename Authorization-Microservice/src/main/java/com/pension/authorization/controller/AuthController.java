@@ -29,9 +29,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
 	
 	@Autowired
@@ -41,20 +43,29 @@ public class AuthController {
 	private PasswordEncoder passwordEncoder;
 	
 	
-
+	/*
+	 * Authenticates user by taking username and password
+	 */
 	@PostMapping("/authenticate")
-	public ResponseEntity<Map<String, String>> getAuthenticationToken(@Valid @RequestBody UserRequest userRequest) throws Exception,AuthenticationException{
+	public ResponseEntity<Map<String, String>> getAuthenticationToken(@Valid @RequestBody UserRequest userRequest) throws AuthenticationException{
+		log.info("Authenticating the user");
 		Map<String,String> authToken= new HashMap<>();
 		UserDetails user= myUserService.loadUserByUsername(userRequest.getUsername());
 		authToken.put("token", generateJwt(user.getUsername()));
-		if(! passwordEncoder.matches(userRequest.getPassword(), user.getPassword()))
+		if(! passwordEncoder.matches(userRequest.getPassword(), user.getPassword())) {
+			log.error("Invalid credentials");
 			throw new AuthenticationException("Invalid Credentials.");
+		}
+		log.info("authentication successful");
 		return ResponseEntity.status(HttpStatus.OK).body(authToken);
 	}
 	
-	
+	/*
+	 * checks whether the token is valid or not
+	 */
 	@PostMapping(value = "/authorize")
 	public boolean authorizeAdmin(@RequestHeader(value = "Authorization", required = true) String requestTokenHeader)  {
+		log.info("validating token");
 		String jwtToken = null;
 		String userName = null;
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
@@ -64,27 +75,38 @@ public class AuthController {
 			}
 
 			catch(SignatureException|MalformedJwtException|IllegalArgumentException | ExpiredJwtException e) {
+				log.error("invalid token");
 				return false;
 			}
 
 		}
-		
+		log.info("token is valid");
 		return userName != null;
 
 	}
 	
+	/*
+	 *Generates jwt token 
+	 */
 	private String generateJwt(String user) {
+		log.info("generating token");
 		JwtBuilder builder=Jwts.builder();
 		builder.setSubject(user);
 		builder.setIssuedAt(new Date());
 		builder.setExpiration(new Date(new Date().getTime()+(30*60*1000)));
 		builder.signWith(SignatureAlgorithm.HS256, "secretkey");
+		log.info("token generation successful");
 		return builder.compact();
 	}
 	
+	/*
+	 * Extracts username from token
+	 */
 	private String getUsernameFromToken(String token) {
+		log.info("extracting username from token");
 		Jws<Claims> jws=Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token.replace("Bearer ", ""));
-			return jws.getBody().getSubject();
+		log.info("username extracted from token sucessfully");	
+		return jws.getBody().getSubject();
 		}
 
 	}

@@ -1,0 +1,14 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+processPensionMicroservice,com.processPensionMicroservice.config,ProcessPensionConfig,0,25,0,0,0,8,0,3,0,3
+processPensionMicroservice,com.processPensionMicroservice.config,SwaggerConfig,0,28,0,0,0,9,0,4,0,4
+processPensionMicroservice,com.processPensionMicroservice.model,ProcessPensionInput,2,149,1,23,0,5,1,22,0,11
+processPensionMicroservice,com.processPensionMicroservice.model,PensionerInput,22,210,17,23,0,5,13,22,0,15
+processPensionMicroservice,com.processPensionMicroservice.model,Bank,2,148,1,23,0,5,1,22,0,11
+processPensionMicroservice,com.processPensionMicroservice.model,PensionerDetail,2,333,4,54,0,9,4,45,0,20
+processPensionMicroservice,com.processPensionMicroservice.model,CustomErrorResponse,2,198,1,37,0,5,1,31,0,13
+processPensionMicroservice,com.processPensionMicroservice.model,ProcessPensionResponse,9,51,1,7,2,3,3,8,2,5
+processPensionMicroservice,com.processPensionMicroservice.exception,PensionerNotFoundException,0,4,0,0,0,2,0,1,0,1
+processPensionMicroservice,com.processPensionMicroservice.exception,PensionerDetailsException,0,4,0,0,0,2,0,1,0,1
+processPensionMicroservice,com.processPensionMicroservice.exception,AuthorizationException,0,4,0,0,0,2,0,1,0,1
+processPensionMicroservice,com.processPensionMicroservice.service,ProcessPensionService,0,50,1,5,0,12,1,6,0,4
+processPensionMicroservice,com.processPensionMicroservice.controller,processPensionController,10,142,3,7,2,29,3,6,0,4

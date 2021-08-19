@@ -19,7 +19,7 @@ import com.pensionerDetailsMicroservice.Model.CustomErrorResponse;
 
 
 @SpringBootTest(classes = GlobalExceptionHandlerTests.class)
-public class GlobalExceptionHandlerTests {
+class GlobalExceptionHandlerTests {
 	@InjectMocks
 	GlobalExceptionHandler globalExceptionHandler;
 	@Mock

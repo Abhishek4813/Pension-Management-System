@@ -135,6 +135,7 @@
 </executions>
 </plugin>
 		</plugins>
+		<finalName>auth</finalName>
 	</build>
 	<dependencyManagement>
 		<dependencies>

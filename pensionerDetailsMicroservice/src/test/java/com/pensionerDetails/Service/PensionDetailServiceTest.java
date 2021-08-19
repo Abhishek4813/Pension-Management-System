@@ -16,15 +16,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.pensionerDetailsMicroservice.Exception.AadharNumberNotFoundException;
 import com.pensionerDetailsMicroservice.Model.Bank;
 import com.pensionerDetailsMicroservice.Model.PensionerDetail;
-import com.pensionerDetailsMicroservice.Service.PensionerdetailService;
+import com.pensionerDetailsMicroservice.Service.PensionerdetailServiceImpl;
 import com.pensionerDetailsMicroservice.Util.DateUtil;
 @SpringBootTest(classes = PensionDetailServiceTest.class)
 @AutoConfigureMockMvc
 @SuppressWarnings("deprecation")
-public class PensionDetailServiceTest {
+class PensionDetailServiceTest {
 
 	@InjectMocks
-	private PensionerdetailService pds;
+	private PensionerdetailServiceImpl pds;
 
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
@@ -32,12 +32,12 @@ public class PensionDetailServiceTest {
 	
 
 	@Test
-	public void testNotNullPensionDetailServiceObject() {
+	void testNotNullPensionDetailServiceObject() {
 		assertNotNull(pds);
 	}
 
 	@Test
-	public void testCorrectDetailsReturnedFromServiceWithCorrectAadharNumber() throws NumberFormatException, IOException, AadharNumberNotFoundException, ParseException  {
+	void testCorrectDetailsReturnedFromServiceWithCorrectAadharNumber() throws NumberFormatException, IOException, AadharNumberNotFoundException, ParseException  {
 
 			PensionerDetail pensionerDetail = new PensionerDetail("Padmini", DateUtil.parseDate("30-08-2000"), "PCASD1234Q",
 					45000, 2000, "family", new Bank("SBI", 11223344, "private"));

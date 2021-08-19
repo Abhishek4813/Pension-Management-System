@@ -12,23 +12,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.pensionerDetailsMicroservice.Model.Bank;
 import com.pensionerDetailsMicroservice.Model.PensionerDetail;
-import com.pensionerDetailsMicroservice.Service.PensionerdetailService;
+import com.pensionerDetailsMicroservice.Service.PensionerdetailServiceImpl;
 import com.pensionerDetailsMicroservice.Util.DateUtil;
 import com.pensionerDetailsMicroservice.client.AuthorizationClient;
 @SpringBootTest(classes = PensionDetailsControllerTest.class)
-public class PensionDetailsControllerTest {
+class PensionDetailsControllerTest {
 
 	@InjectMocks
 	PensionerDetailsController controller;
 
 	@Mock
-	PensionerdetailService service;
+	PensionerdetailServiceImpl service;
 
 	@Mock
 	AuthorizationClient authorizationClient;
 
 	@Test
-	public void testToGetCorrectPenionerDetailsFromController() throws Exception {
+	void testToGetCorrectPenionerDetailsFromController() throws Exception {
 		PensionerDetail pensionerDetail = new PensionerDetail("Jahnavi", DateUtil.parseDate("30-08-2000"), "PCASD1234Q",
 				45000, 2000, "family", new Bank("SBI", 11223344, "private"));
 		when(authorizationClient.authorizeRequest("")).thenReturn(true);
@@ -40,7 +40,7 @@ public class PensionDetailsControllerTest {
 	}
 	
 	@Test
-	public void testToGetCorrectPenionerDetailsFromService() throws Exception{
+	void testToGetCorrectPenionerDetailsFromService() throws Exception{
 		
 		
 		PensionerDetail pensionerDetail = new PensionerDetail("Jahnavi", DateUtil.parseDate("30-08-2000"), "PCASD1234Q",
@@ -55,7 +55,7 @@ public class PensionDetailsControllerTest {
 	}
 
 	@Test
-	public void testForAadharNumberNotInCsvFile() throws Exception {
+	void testForAadharNumberNotInCsvFile() throws Exception {
 		
 		when(authorizationClient.authorizeRequest("")).thenReturn(true);
 		PensionerDetail actual = controller.getPensionerDetailByAadhaar("",12345678888L);

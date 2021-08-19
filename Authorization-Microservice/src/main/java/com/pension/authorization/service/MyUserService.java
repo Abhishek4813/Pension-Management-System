@@ -11,7 +11,10 @@ import com.pension.authorization.dao.UserDao;
 import com.pension.authorization.model.MyUserDetail;
 import com.pension.authorization.model.User;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MyUserService implements UserDetailsService{
 
 	@Autowired
@@ -23,13 +26,15 @@ public class MyUserService implements UserDetailsService{
 	//Returning UserDetails Object if your is present in database.
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("getting user from username");
 		User user= userDao.getUserByUsername(username);
 		if(user==null) {
+			log.warn("no users available");
 			throw new UsernameNotFoundException("No Users Available With "+username+" !!!....");
 		}
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		MyUserDetail myUser= new MyUserDetail(user);
-		return myUser;
+		log.info("user found with the provided username");
+		return new MyUserDetail(user);
 	}
 
 }

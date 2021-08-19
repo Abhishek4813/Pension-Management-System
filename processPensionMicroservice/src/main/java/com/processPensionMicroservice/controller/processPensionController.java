@@ -66,11 +66,11 @@ public class processPensionController {
 			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,
 					pensionerInput.getAadharNumber());
 			log.info(pensionerDetail.getName());
-			if (pensionerDetail == null || pensionerDetail.getName() == null) {
+			if (pensionerDetail.getName() == null) {
 				throw new PensionerNotFoundException("Pensioner with given aadhar not found");
 			}
 			PensionerDetail receivedPensionerDetail = modelMapper.map(pensionerInput, PensionerDetail.class);
-			if (pensionerDetail.compareTo(receivedPensionerDetail) == -1) {
+			if (pensionerDetail.compareTo(receivedPensionerDetail) < 0) {
 				throw new PensionerDetailsException("Incorrect Pensioner Details.");
 			}
 
@@ -101,15 +101,30 @@ public class processPensionController {
 		if (authorizationClient.authorizeRequest(header)) {
 			PensionerDetail pensionerDetail = pensionerDetailClient.getPensionerDetailByAadhaar(header,
 					processInput.getAadharNumber());
+			if( pensionerDetail.getName()==null) {
+				throw new PensionerNotFoundException("Pensioner with given aadhaar number not found");
+			}
 			double serviceCharge = processPensionService.getServiceCharge(pensionerDetail.getBank().getBankType());
 			ProcessPensionInput processPensionInput = new ProcessPensionInput(processInput.getAadharNumber(),
 					processInput.getPensionAmount(), serviceCharge);
+			
+			ProcessPensionResponse responseCode=null;
+			for(int i=1;i<=3;i++) {
+				 responseCode=pensionDisbursementClient.getcode(header, processPensionInput);
+				if(responseCode.getPensionStatusCode()==10) {
+					log.info("End ProcessPension");
+					return responseCode;
+				}
+				log.info("retrying");
+			}
+			
 			log.info("End ProcessPension");
-			return pensionDisbursementClient.getcode(header, processPensionInput);
+			return responseCode;
+			
 		} else {
 			throw new AuthorizationException("User not authorized");
 		}
-
+		
 	}
 
 }

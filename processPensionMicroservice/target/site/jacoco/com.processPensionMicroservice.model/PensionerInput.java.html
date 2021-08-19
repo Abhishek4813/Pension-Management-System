@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PensionerInput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">processPensionMicroservice</a> &gt; <a href="index.source.html" class="el_package">com.processPensionMicroservice.model</a> &gt; <span class="el_source">PensionerInput.java</span></div><h1>PensionerInput.java</h1><pre class="source lang-java linenums">package com.processPensionMicroservice.model;
+
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+<span class="fc" id="L18">@AllArgsConstructor</span>
+<span class="fc" id="L19">@NoArgsConstructor</span>
+<span class="fc" id="L20">@Getter</span>
+<span class="fc" id="L21">@Setter</span>
+<span class="pc bpc" id="L22" title="17 of 40 branches missed.">@EqualsAndHashCode</span>
+
+public class PensionerInput {
+	
+	
+	@NotNull(message=&quot;{name.notnull}&quot;)
+	private String name;
+	@NotNull(message=&quot;{dob.notnull}&quot;)
+	@PastOrPresent
+	private  @DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;) Date dateOfBirth;
+	@NotNull(message=&quot;{pan.notnull}&quot;)
+	@Pattern(regexp = &quot;[A-Z]{5}[0-9]{4}[A-Z]{1}&quot;, message = &quot;{pan.valid}&quot;)
+	private String pan;
+	@Positive(message=&quot;{aadhar.positive}&quot;)
+	private long aadharNumber;
+	@NotNull(message=&quot;{pentiontype.notnull}&quot;)
+	private String pensionType;
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

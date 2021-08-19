@@ -12,11 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.processPensionMicroservice.model.Bank;
 import com.processPensionMicroservice.model.PensionerDetail;
 
-@SpringBootTest(classes = ProcessPensionServiceTest.class)
-public class ProcessPensionServiceTest {
+@SpringBootTest(classes = ProcessPensionServiceImplTest.class)
+public class ProcessPensionServiceImplTest {
 
 	@InjectMocks
-	ProcessPensionService processPensionService;
+	ProcessPensionServiceImpl processPensionService;
 	
 	SimpleDateFormat parseDate=new SimpleDateFormat("dd-MM-yyyy");
 

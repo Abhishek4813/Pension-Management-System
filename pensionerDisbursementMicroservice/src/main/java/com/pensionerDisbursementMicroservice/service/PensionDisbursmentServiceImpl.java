@@ -7,7 +7,7 @@ import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
 
 @Service
-public class PensionDisbursmentService {
+public class PensionDisbursmentServiceImpl implements PensionDisbursementService{
 
 	
 	public ProcessPensionResponse code(PensionerDetail pensionerDetail, ProcessPensionInput processPensionInput) {

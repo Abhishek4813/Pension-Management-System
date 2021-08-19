@@ -16,13 +16,13 @@ import com.pensionerDisbursementMicroservice.Model.Bank;
 import com.pensionerDisbursementMicroservice.Model.PensionerDetail;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionInput;
 import com.pensionerDisbursementMicroservice.Model.ProcessPensionResponse;
-import com.pensionerDisbursementMicroservice.service.PensionDisbursmentService;
+import com.pensionerDisbursementMicroservice.service.PensionDisbursmentServiceImpl;
 
 @SpringBootTest(classes = PensionDisbursementServiceTest.class)
 public class PensionDisbursementServiceTest {
 
 	@InjectMocks
-	PensionDisbursmentService service;
+	PensionDisbursmentServiceImpl service;
 	
 	@Mock
 	ProcessPensionResponse response;
